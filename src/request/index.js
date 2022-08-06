@@ -31,10 +31,14 @@ export function httpPost (url, params) {
  * @param {Object} params [请求时携带的参数]
  * @returns Promise
  */
-export function httpGet (url, params) {
+export function httpGet (url, params, config) {
   return new Promise((resolve, reject) => {
     axios.get(url, {
       params: params
+    }, {
+      headers: {
+        'Content-Type': config.headers['Content-Type'] || 'application/json;charset=utf-8'
+      }
     })
       .then(res => {
         resolve(res.data)
