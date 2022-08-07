@@ -4,9 +4,13 @@ import notification from 'ant-design-vue/es/notification'
 * @param {String} url [请求的url地址]
 * @param {Object} params [请求时携带的参数]
 */
-export function httpPost (url, params) {
+export function httpPost (url, params, config) {
   return new Promise((resolve, reject) => {
-    axios.post(url, params)
+    axios.post(url, params, {
+      headers: {
+        'Content-Type': config.headers['Content-Type'] || 'application/json;charset=utf-8'
+      }
+    })
       .then(res => {
         resolve(res.data)
       })
@@ -31,14 +35,10 @@ export function httpPost (url, params) {
  * @param {Object} params [请求时携带的参数]
  * @returns Promise
  */
-export function httpGet (url, params, config) {
+export function httpGet (url, params) {
   return new Promise((resolve, reject) => {
     axios.get(url, {
       params: params
-    }, {
-      headers: {
-        'Content-Type': config.headers['Content-Type'] || 'application/json;charset=utf-8'
-      }
     })
       .then(res => {
         resolve(res.data)
